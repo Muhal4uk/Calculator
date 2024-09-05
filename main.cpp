@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cctype>
 #include <stdexcept>
+#include <cmath>
 
 using namespace std;
 
@@ -33,8 +34,20 @@ int getNumber() {
 
 char getOperator() {
     char op;
-    cout << "Enter operator: ";
-    cin >> op;
+    bool validOperator = false;
+    while(!validOperator)
+    {
+        cout << "Enter operator: ";
+        cin >> op;
+        if(op == '+' || op == '-' || op == '*' || op == '/' || op == '^')
+        {
+            validOperator = true;
+        }
+        else
+        {
+            cerr << "Invalid operator. Please enter a valid operator." << endl;
+        }
+    }
     return op;
 }
 
@@ -55,6 +68,9 @@ void performOperation(int num1, int num2, char op) {
             } else {
                 throw invalid_argument("Division by zero is not possible");
             }
+            break;
+        case '^':
+            cout << pow(num1, num2);
             break;
         default:
             throw invalid_argument("Invalid operator. Try again.");
